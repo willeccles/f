@@ -8,7 +8,7 @@
 
 void printitem(char* name, char* val) {
     if (name && val) {
-        printf("\033[36m%s\033[m: %s\n", name, val);
+        printf("\033[36m%7s\033[m: %s\n", name, val);
     }
 }
 
@@ -30,12 +30,20 @@ int main(void) {
     printf("\033[32m%s\033[m@\033[32m%s\033m\n",
             pw->pw_name, un.nodename);
 
-    printitem("os", un.sysname);
-    printitem("release", un.release);
-    printitem("version", un.version);
-    printitem("machine", un.machine);
+    char* os = malloc(strlen(un.sysname) + strlen(un.release) + 2);
+    if (!os) {
+        perror("malloc");
+        return 1;
+    }
+
+    sprintf(os, "%s %s", un.sysname, un.release);
+
+    printitem("os", os);
+    //printitem("machine", un.machine);
     printitem("editor", editor);
     printitem("shell", pw->pw_shell);
+
+    free(os);
 
     return 0;
 }

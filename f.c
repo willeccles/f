@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <sys/utsname.h>
 
 void printitem(char* name, char* val) {
     if (name && val) {
@@ -12,9 +13,11 @@ void printitem(char* name, char* val) {
 }
 
 int main(void) {
-    char hostname[256] = {0};
-    // TODO use uname(2) to get more bang for your buck
-    gethostname(hostname, 255);
+    struct utsname un;
+    if (uname(&un) == -1) {
+        perror("error getting system info");
+        return 1;
+    }
 
     struct passwd* pw = getpwuid(getuid());
     if (!pw) {
@@ -25,8 +28,12 @@ int main(void) {
     char* editor = getenv("EDITOR");
 
     printf("\033[32m%s\033[m@\033[32m%s\033m\n",
-            pw->pw_name, hostname);
+            pw->pw_name, un.nodename);
 
+    printitem("os", un.sysname);
+    printitem("release", un.release);
+    printitem("version", un.version);
+    printitem("machine", un.machine);
     printitem("editor", editor);
     printitem("shell", pw->pw_shell);
 

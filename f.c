@@ -29,7 +29,7 @@ int main(void) {
     char* editor = getenv("EDITOR");
     if (editor && *editor) editor = basename(editor);
 
-    printf("\033[32m%s\033[m@\033[32m%s\033m\n",
+    printf(" \033[32m%s\033[m@\033[32m%s\033m\n",
             pw->pw_name, un.nodename);
 
     char* os = malloc(strlen(un.sysname) + strlen(un.release) + 2);

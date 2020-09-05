@@ -5,10 +5,11 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <sys/utsname.h>
+#include <libgen.h>
 
 void printitem(char* name, char* val) {
     if (name && val) {
-        printf("\033[36m%7s\033[m: %s\n", name, val);
+        printf("\033[36m%7s\033[m | %s\n", name, val);
     }
 }
 
@@ -39,11 +40,16 @@ int main(void) {
     sprintf(os, "%s %s", un.sysname, un.release);
 
     printitem("os", os);
-    printitem("editor", editor);
-    printitem("shell", pw->pw_shell);
+    printitem("arch", un.machine);
+    printitem("editor", basename(editor));
+    printitem("shell", basename(pw->pw_shell));
 
     for (int i = 0; i < 6; i++) {
-        printf("\033[%d;%dm▀▀\033[m", 31 + i, 101 + i);
+        printf(" \033[%dm▄▄\033[m", 31 + i);
+    }
+    printf("\n");
+    for (int i = 0; i < 6; i++) {
+        printf(" \033[%dm▀▀\033[m", 91 + i);
     }
     printf("\n");
 

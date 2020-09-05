@@ -39,9 +39,13 @@ int main(void) {
     sprintf(os, "%s %s", un.sysname, un.release);
 
     printitem("os", os);
-    //printitem("machine", un.machine);
     printitem("editor", editor);
     printitem("shell", pw->pw_shell);
+
+    for (int i = 0; i < 6; i++) {
+        printf("\033[%d;%dm▀▀\033[m", 31 + i, 101 + i);
+    }
+    printf("\n");
 
     free(os);
 

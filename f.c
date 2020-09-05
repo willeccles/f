@@ -27,6 +27,7 @@ int main(void) {
     }
 
     char* editor = getenv("EDITOR");
+    if (editor) editor = basename(editor);
 
     printf("\033[32m%s\033[m@\033[32m%s\033m\n",
             pw->pw_name, un.nodename);
@@ -41,7 +42,7 @@ int main(void) {
 
     printitem("os", os);
     printitem("arch", un.machine);
-    printitem("editor", basename(editor));
+    printitem("editor", editor);
     printitem("shell", basename(pw->pw_shell));
 
     for (int i = 0; i < 6; i++) {

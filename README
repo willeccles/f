@@ -1,0 +1,17 @@
+# f
+
+f is a system fetch program which lists only the system information that
+matters:
+
+- username@hostname
+- OS and version
+- architecture
+- shell
+- editor
+- 16 colors
+
+# usage
+
+f is written in C, so you'll need a C compiler. Optionally, a Makefile is
+included for use with GNU Make. After you build and install f, you can simply
+run f. There are no options.

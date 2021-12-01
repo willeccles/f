@@ -1,11 +1,11 @@
+#include <libgen.h>
+#include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <sys/types.h>
-#include <pwd.h>
 #include <sys/utsname.h>
-#include <libgen.h>
+#include <unistd.h>
 
 void printitem(char* name, char* val) {
   if (name && *name && val && *val) {
@@ -29,8 +29,7 @@ int main(void) {
   char* editor = getenv("EDITOR");
   if (editor && *editor) editor = basename(editor);
 
-  printf(" \033[32m%s\033[m@\033[32m%s\033m\n",
-         pw->pw_name, un.nodename);
+  printf(" \033[32m%s\033[m@\033[32m%s\033m\n", pw->pw_name, un.nodename);
 
   char* os = malloc(strlen(un.sysname) + strlen(un.release) + 2);
   if (!os) {

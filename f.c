@@ -7,7 +7,7 @@
 #include <sys/utsname.h>
 #include <unistd.h>
 
-void printitem(char* name, char* val) {
+void printitem(const char* name, const char* val) {
   if (name && *name && val && *val) {
     printf("\033[36m%7s\033[m | %s\n", name, val);
   }
